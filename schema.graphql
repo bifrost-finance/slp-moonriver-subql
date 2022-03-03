@@ -1,18 +1,9 @@
 type StakingInfo @entity {
-   id: ID!
-   block_height: BigInt!
-   block_timestamp: Date!
-   method: String!
-   data: String!
-}
-
-type StakingRewarded @entity {
   id: ID!
-  event_id: Int!
-  block_height: Int!
+  block_height: BigInt!
   block_timestamp: Date!
-  account: String
-  balance: BigInt
+  method: String!
+  data: String!
 }
 
 type StakingErapaid @entity {
@@ -20,7 +11,69 @@ type StakingErapaid @entity {
   event_id: Int!
   block_height: Int!
   block_timestamp: Date!
-  ear_index:String
-  validator_payout:BigInt
-  remainder:BigInt
+  era_index: String
+  validator_payout: BigInt
+  remainder: BigInt
+}
+
+type StakingBonded @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  balance: BigInt
+  account: String
+}
+
+type StakingUnbonded @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  balance: BigInt
+  account: String
+}
+
+type StakingWithdrawn @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  balance: BigInt
+  account: String
+}
+
+type StakingKicked @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  nominator: String
+  stash: String
+}
+
+type StakingChilled @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  account: String
+}
+
+type StakingSlashed @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  balance: BigInt
+  account: String
+}
+
+type StakingPayoutstarte @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  era_index: String
+  account: String
 }
