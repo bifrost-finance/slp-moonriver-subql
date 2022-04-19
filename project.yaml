@@ -6,7 +6,7 @@ repository: 'https://github.com/bifrost-finance/slp-kusama-subql.git'
 schema:
   file: ./schema.graphql
 network:
-  genesisHash: '0xe156ddef32c194ebca7b97a65785a52fe4e3c7476bbcb35915a68620cd27f4d9'
+  genesisHash: '0xede9987f867ca8f66daed4037c19d2466c1ec185d3df0242d13274d961733c04'
   endpoint: 'wss://kusama-rpc.devnet.liebi.com/ws'
   chaintypes:
     file: ./types.json
@@ -16,8 +16,8 @@ dataSources:
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: staking
-          kind: substrate/BlockHandler
+#        - handler: staking
+#          kind: substrate/BlockHandler
         - handler: handleStakingErapaid
           kind: substrate/EventHandler
           filter:
@@ -38,23 +38,29 @@ dataSources:
           filter:
             module: staking
             method: Withdrawn
-        - handler: handleStakingKicked
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Kicked
-        - handler: handleStakingChilled
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Chilled
-        - handler: handleStakingSlashed
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Slashed
+#        - handler: handleStakingKicked
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Kicked
+#        - handler: handleStakingChilled
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Chilled
+#        - handler: handleStakingSlashed
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Slashed
         - handler: handleStakingPayoutstarte
           kind: substrate/EventHandler
           filter:
             module: staking
             method: PayoutStarted
+        - handler: handleParaInherent
+          kind: substrate/CallHandler
+          filter:
+            module: paraInherent
+            method: enter
+            success: true

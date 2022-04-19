@@ -1,10 +1,10 @@
-type StakingInfo @entity {
-  id: ID!
-  block_height: BigInt!
-  block_timestamp: Date!
-  method: String!
-  data: String!
-}
+#type StakingInfo @entity {
+#  id: ID!
+#  block_height: BigInt!
+#  block_timestamp: Date!
+#  method: String!
+#  data: String!
+#}
 
 type StakingErapaid @entity {
   id: ID!
@@ -43,31 +43,31 @@ type StakingWithdrawn @entity {
   account: String
 }
 
-type StakingKicked @entity {
-  id: ID!
-  event_id: Int!
-  block_height: Int!
-  block_timestamp: Date!
-  nominator: String
-  stash: String
-}
+#type StakingKicked @entity {
+#  id: ID!
+#  event_id: Int!
+#  block_height: Int!
+#  block_timestamp: Date!
+#  nominator: String
+#  stash: String
+#}
 
-type StakingChilled @entity {
-  id: ID!
-  event_id: Int!
-  block_height: Int!
-  block_timestamp: Date!
-  account: String
-}
+#type StakingChilled @entity {
+#  id: ID!
+#  event_id: Int!
+#  block_height: Int!
+#  block_timestamp: Date!
+#  account: String
+#}
 
-type StakingSlashed @entity {
-  id: ID!
-  event_id: Int!
-  block_height: Int!
-  block_timestamp: Date!
-  balance: BigInt
-  account: String
-}
+#type StakingSlashed @entity {
+#  id: ID!
+#  event_id: Int!
+#  block_height: Int!
+#  block_timestamp: Date!
+#  balance: BigInt
+#  account: String
+#}
 
 type StakingPayoutstarte @entity {
   id: ID!
@@ -77,3 +77,15 @@ type StakingPayoutstarte @entity {
   era_index: String
   account: String
 }
+
+type Remarked @entity {
+  id: ID!
+  event_id: Int!
+  block_height: Int!
+  block_timestamp: Date!
+  account: String
+  result: String
+  hash: String
+}
+
+
