@@ -8,16 +8,14 @@ schema:
 network:
   genesisHash: '0xede9987f867ca8f66daed4037c19d2466c1ec185d3df0242d13274d961733c04'
   endpoint: 'wss://kusama-rpc.devnet.liebi.com/ws'
-  chaintypes:
-    file: ./types.json
 dataSources:
   - kind: substrate/Runtime
     startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
-#        - handler: staking
-#          kind: substrate/BlockHandler
+        - handler: staking
+          kind: substrate/BlockHandler
         - handler: handleStakingErapaid
           kind: substrate/EventHandler
           filter:

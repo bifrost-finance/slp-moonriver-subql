@@ -7,31 +7,32 @@ import {
   StakingPayoutstarte,
   StakingUnbonded,
   StakingWithdrawn,
+  StakingInfo,
 } from "../types";
-//
-// export async function staking(block: SubstrateBlock): Promise<void> {
-//   const blockNumber = (
-//     block.block.header.number as Compact<BlockNumber>
-//   ).toBigInt();
-//   const stakingEvents = block.events.filter(
-//     (e) => e.event.section === "staking"
-//   ) as SubstrateEvent[];
-//
-//   for (let stakingEvent of stakingEvents) {
-//     const {
-//       event: { data, method },
-//     } = stakingEvent;
-//     const record = new StakingInfo(
-//       blockNumber.toString() + "-" + stakingEvent.idx.toString()
-//     );
-//     record.block_height = blockNumber;
-//     record.block_timestamp = block.timestamp;
-//     record.method = method.toString();
-//     record.data = data.toString();
-//     await record.save();
-//   }
-//   return;
-// }
+
+export async function staking(block: SubstrateBlock): Promise<void> {
+  const blockNumber = (
+    block.block.header.number as Compact<BlockNumber>
+  ).toBigInt();
+  const stakingEvents = block.events.filter(
+    (e) => e.event.section === "staking"
+  ) as SubstrateEvent[];
+
+  for (let stakingEvent of stakingEvents) {
+    const {
+      event: { data, method },
+    } = stakingEvent;
+    const record = new StakingInfo(
+      blockNumber.toString() + "-" + stakingEvent.idx.toString()
+    );
+    record.block_height = blockNumber;
+    record.block_timestamp = block.timestamp;
+    record.method = method.toString();
+    record.data = data.toString();
+    await record.save();
+  }
+  return;
+}
 
 export async function handleStakingErapaid(
   event: SubstrateEvent

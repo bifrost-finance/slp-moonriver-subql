@@ -1,10 +1,10 @@
-#type StakingInfo @entity {
-#  id: ID!
-#  block_height: BigInt!
-#  block_timestamp: Date!
-#  method: String!
-#  data: String!
-#}
+type StakingInfo @entity {
+  id: ID!
+  block_height: BigInt!
+  block_timestamp: Date!
+  method: String!
+  data: String!
+}
 
 type StakingErapaid @entity {
   id: ID!
