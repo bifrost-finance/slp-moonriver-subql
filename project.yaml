@@ -6,7 +6,7 @@ repository: 'https://github.com/bifrost-finance/slp-kusama-subql.git'
 schema:
   file: ./schema.graphql
 network:
-  genesisHash: '0xede9987f867ca8f66daed4037c19d2466c1ec185d3df0242d13274d961733c04'
+  genesisHash: '0xb7426168a3623c663511e7b891b2bf177ca79f9556bdf13403239845a157464f'
   endpoint: 'wss://kusama-rpc.devnet.liebi.com/ws'
 dataSources:
   - kind: substrate/Runtime
