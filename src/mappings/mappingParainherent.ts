@@ -13,39 +13,47 @@ export async function handleParaInherent(
   const executedUpwardEvent = events.find(
     (e) => e.event.section === "ump" && e.event.method === "ExecutedUpward"
   ) as SubstrateEvent;
-  const remarkedEvent = events.find(
+  const remarkedEvents = events.filter(
     (e) => e.event.section === "system" && e.event.method === "Remarked"
-  ) as SubstrateEvent;
+  ) as SubstrateEvent[];
 
-  if (remarkedEvent && upwardMessagesReceivedEvent && executedUpwardEvent) {
+  if (
+    remarkedEvents.length > 0 &&
+    upwardMessagesReceivedEvent &&
+    executedUpwardEvent
+  ) {
     const {
       event: {
         data: [paraID],
       },
     } = upwardMessagesReceivedEvent;
     if (paraID.toString() === "2001") {
-      const record = new Remarked(
-        blockNumber.toString() + "-" + remarkedEvent.idx.toString()
+      await Promise.all(
+        remarkedEvents.map(async (remarkedEvent) => {
+          const record = new Remarked(
+            blockNumber.toString() + "-" + remarkedEvent.idx.toString()
+          );
+          const {
+            event: {
+              data: [account, hash],
+            },
+          } = remarkedEvent;
+
+          const {
+            event: {
+              data: [result_hash, result],
+            },
+          } = executedUpwardEvent;
+
+          record.block_height = blockNumber;
+          record.event_id = remarkedEvent.idx;
+          record.block_timestamp = remarkedEvent.block.timestamp;
+          record.account = account.toString();
+          record.hash = hash.toString();
+          record.result = result.toString();
+          await record.save();
+        })
       );
-      const {
-        event: {
-          data: [account, hash],
-        },
-      } = remarkedEvent;
-
-      const {
-        event: {
-          data: [result_hash, result],
-        },
-      } = executedUpwardEvent;
-
-      record.block_height = blockNumber;
-      record.event_id = remarkedEvent.idx;
-      record.block_timestamp = remarkedEvent.block.timestamp;
-      record.account = account.toString();
-      record.hash = hash.toString();
-      record.result = result.toString();
-      await record.save();
     }
   }
 }
