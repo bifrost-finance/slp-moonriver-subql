@@ -6,9 +6,12 @@ export async function handleParaInherent(
 ): Promise<void> {
   const { block, events } = extrinsic;
   const blockNumber = block.block.header.number.toNumber();
+
   const upwardMessagesReceivedEvent = events.find(
     (e) =>
-      e.event.section === "ump" && e.event.method === "UpwardMessagesReceived"
+      e.event.section === "ump" &&
+      e.event.method === "UpwardMessagesReceived"&&
+      e.event.data[0].toString() === "2001"
   ) as SubstrateEvent;
   const executedUpwardEvent = events.find(
     (e) => e.event.section === "ump" && e.event.method === "ExecutedUpward"
@@ -22,12 +25,6 @@ export async function handleParaInherent(
     upwardMessagesReceivedEvent &&
     executedUpwardEvent
   ) {
-    const {
-      event: {
-        data: [paraID],
-      },
-    } = upwardMessagesReceivedEvent;
-    if (paraID.toString() === "2001") {
       await Promise.all(
         remarkedEvents.map(async (remarkedEvent) => {
           const record = new Remarked(
@@ -54,6 +51,5 @@ export async function handleParaInherent(
           await record.save();
         })
       );
-    }
   }
 }
