@@ -1,16 +1,18 @@
 specVersion: 0.2.0
-name: slp-kusama-subql
+name: slp-moonriver-subql
 version: 1.0.0
 description: ''
 repository: 'https://github.com/bifrost-finance/slp-kusama-subql.git'
 schema:
   file: ./schema.graphql
 network:
-  genesisHash: '0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe'
-  endpoint: 'wss://kusama-rpc.polkadot.io'
+  genesisHash: '0x401a1f9dca3da46f5c4091016c8a2f26dcea05865116b286f60f668207d1474b'
+  endpoint: 'wss://moonriver.api.onfinality.io/public-ws'
+  chaintypes:
+    file: './dist/chaintypes.js'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 12394220
+    startBlock: 1900000
     mapping:
       file: ./dist/index.js
       handlers:
@@ -19,46 +21,26 @@ dataSources:
         - handler: handleStakingErapaid
           kind: substrate/EventHandler
           filter:
-            module: staking
-            method: EraPaid
-        - handler: handleStakingBonded
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Bonded
-        - handler: handleStakinUnbonded
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Unbonded
-        - handler: handleStakingWithdrawn
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Withdrawn
-#        - handler: handleStakingKicked
+            module: parachainStaking
+            method: NewRound
+#        - handler: handleStakingBonded
 #          kind: substrate/EventHandler
 #          filter:
-#            module: staking
-#            method: Kicked
-#        - handler: handleStakingChilled
+#            module: parachainStaking
+#            method: CandidateBondedMore
+#        - handler: handleStakinUnbonded
 #          kind: substrate/EventHandler
 #          filter:
-#            module: staking
-#            method: Chilled
-#        - handler: handleStakingSlashed
+#            module: parachainStaking
+#            method: CandidateBondedLess
+#        - handler: handleStakingWithdrawn
 #          kind: substrate/EventHandler
 #          filter:
-#            module: staking
-#            method: Slashed
-        - handler: handleStakingPayoutstarte
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: PayoutStarted
-        - handler: handleParaInherent
-          kind: substrate/CallHandler
-          filter:
-            module: paraInherent
-            method: enter
-            success: true
+#            module: parachainStaking
+#            method: DelegationDecreased
+#        - handler: handleParaInherent
+#          kind: substrate/CallHandler
+#          filter:
+#            module: paraInherent
+#            method: enter
+#            success: true
