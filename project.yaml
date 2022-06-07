@@ -23,24 +23,8 @@ dataSources:
           filter:
             module: parachainStaking
             method: NewRound
-#        - handler: handleStakingBonded
-#          kind: substrate/EventHandler
-#          filter:
-#            module: parachainStaking
-#            method: CandidateBondedMore
-#        - handler: handleStakinUnbonded
-#          kind: substrate/EventHandler
-#          filter:
-#            module: parachainStaking
-#            method: CandidateBondedLess
-#        - handler: handleStakingWithdrawn
-#          kind: substrate/EventHandler
-#          filter:
-#            module: parachainStaking
-#            method: DelegationDecreased
-#        - handler: handleParaInherent
-#          kind: substrate/CallHandler
-#          filter:
-#            module: paraInherent
-#            method: enter
-#            success: true
+        - handler: handleRemarked
+          kind: substrate/EventHandler
+          filter:
+            module: system
+            method: Remarked

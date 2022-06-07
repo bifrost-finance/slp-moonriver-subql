@@ -4,6 +4,7 @@ import { Compact } from "@polkadot/types";
 import {
   StakingErapaid,
   StakingInfo,
+  Remarked
 } from "../types";
 
 export async function staking(block: SubstrateBlock): Promise<void> {
@@ -48,6 +49,28 @@ export async function handleStakingErapaid(
   record.era_index = index.toString();
   record.validator_payout = (validator_payout as Balance)?.toBigInt();
   record.number_collators = number_collators.toString();
+
+  await record.save();
+}
+
+export async function handleRemarked(
+    event: SubstrateEvent
+): Promise<void> {
+  const blockNumber = event.block.block.header.number.toNumber();
+
+  const {
+    event: {
+      data: [account, hash],
+    },
+  } = event;
+
+  const record = new Remarked(`${blockNumber}-${event.idx.toString()}`);
+
+  record.event_id = event.idx;
+  record.block_height = blockNumber;
+  record.block_timestamp = event.block.timestamp;
+  record.account = account.toString();
+  record.hash = hash.toString();
 
   await record.save();
 }
