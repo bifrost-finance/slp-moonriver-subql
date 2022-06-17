@@ -71,6 +71,7 @@ export async function handleRemarked(
   record.block_timestamp = event.block.timestamp;
   record.account = account.toString();
   record.hash = hash.toString();
+  record.result = '';
 
   await record.save();
 }
