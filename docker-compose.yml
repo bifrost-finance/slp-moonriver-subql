@@ -26,3 +26,4 @@ services:
     command:
       - -f=/app
       - --local
+      - --log-level=debug

@@ -14,6 +14,7 @@ type StakingErapaid @entity {
   era_index: String
   validator_payout: BigInt
   number_collators:String!
+  apy:String!
 }
 
 type Remarked @entity {

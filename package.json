@@ -22,10 +22,13 @@
   "devDependencies": {
     "@polkadot/api": "^7.0.1",
     "@subql/cli": "^0.25.0",
-    "typescript": "^4.6.3",
-    "moonbeam-types-bundle":"2.0.4"
+    "moonbeam-types-bundle": "2.0.4",
+    "typescript": "^4.6.3"
   },
   "exports": {
     "chaintypes": "./src/chaintypes.ts"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.1.0"
   }
 }
