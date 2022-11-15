@@ -6,13 +6,13 @@ repository: 'https://github.com/bifrost-finance/slp-kusama-subql.git'
 schema:
   file: ./schema.graphql
 network:
-  genesisHash: '0x401a1f9dca3da46f5c4091016c8a2f26dcea05865116b286f60f668207d1474b'
+  genesisHash: 'wss://moonbeam.api.onfinality.io/public-ws'
   endpoint: 'wss://moonriver.api.onfinality.io/public-ws'
   chaintypes:
     file: './dist/chaintypes.js'
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 2146518
+    startBlock: 2300500
     mapping:
       file: ./dist/index.js
       handlers:
