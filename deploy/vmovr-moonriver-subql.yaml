@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: vmovr-moonriver-subql
+    qcloud-app: vmovr-moonriver-subql
+  name: vmovr-moonriver-subql
+  namespace: slp
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: vmovr-moonriver-subql
+      qcloud-app: vmovr-moonriver-subql
+  template:
+    metadata:
+      labels:
+        k8s-app: vmovr-moonriver-subql
+        qcloud-app: vmovr-moonriver-subql
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - -f=/app
+        - --local
+        - --timestamp-field
+        env:
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASS
+          value: Newhope@1
+        - name: DB_DATABASE
+          value: slp_vmovr_moonriver
+        - name: DB_HOST
+          value: 172.19.64.11
+        - name: DB_PORT
+          value: "5432"
+        image: harbor.liebi.com/slp/slp-moonriver-subql:v1.2
+        imagePullPolicy: IfNotPresent
+        name: vmovr-moonriver-subql
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 4Gi
+          requests:
+            cpu: 125m
+            memory: 256Mi
+      imagePullSecrets:
+      - name: harbor
