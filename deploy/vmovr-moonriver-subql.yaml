@@ -37,8 +37,12 @@ spec:
           value: 172.19.64.11
         - name: DB_PORT
           value: "5432"
+        volumeMounts:
+        - name: project
+          mountPath: /app/project.yaml
+          subPath: project.yaml
         image: harbor.liebi.com/slp/slp-moonriver-subql:v1.2
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: vmovr-moonriver-subql
         resources:
           limits:
@@ -49,3 +53,7 @@ spec:
             memory: 256Mi
       imagePullSecrets:
       - name: harbor
+      volumes:
+      - name: project
+        configMap:
+          name: slp-moonriver-subql
