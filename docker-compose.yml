@@ -25,5 +25,4 @@ services:
       - ./:/app
     command:
       - -f=/app
-      - --local
-      - --log-level=debug
+      - --batch-size=30
