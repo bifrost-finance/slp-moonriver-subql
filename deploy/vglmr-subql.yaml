@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: glmr-glmr-subql
+    qcloud-app: glmr-glmr-subql
+  name: glmr-glmr-subql
+  namespace: slp
+spec:
+  selector:
+    matchLabels:
+      k8s-app: glmr-glmr-subql
+      qcloud-app: glmr-glmr-subql
+  template:
+    metadata:
+      labels:
+        k8s-app: glmr-glmr-subql
+        qcloud-app: glmr-glmr-subql
+    spec:
+      containers:
+      - args:
+        - -f=/app
+        - --local
+        - --timestamp-field
+        env:
+        - name: MOONRIVER_DB_DATABASE
+          value: slp_vglmr_slp
+        - name: DB_DATABASE
+          value: slp_vglmr_slp
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASS
+          value: Newhope@1
+        - name: DB_HOST
+          value: 172.19.64.11
+        - name: DB_PORT
+          value: "5432"
+        image: harbor.liebi.com/slp/slp-moonriver-subql-vglmr:v1.2
+        imagePullPolicy: Always
+        name: glmr-glmr-subql
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: 125m
+            memory: 256Mi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
