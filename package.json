@@ -21,7 +21,7 @@
     "@polkadot/api": "^9",
     "@subql/cli": "latest",
     "@subql/types": "latest",
-    "moonbeam-types-bundle": "latest",
+    "moonbeam-types-bundle": "^2.0.3",
     "typescript": "^4.6.3",
     "bignumber.js": "^9.1.0"
   },
