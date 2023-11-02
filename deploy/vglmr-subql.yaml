@@ -38,6 +38,10 @@ spec:
         image: harbor.liebi.com/slp/slp-moonriver-subql-vglmr:v1.2
         imagePullPolicy: Always
         name: glmr-glmr-subql
+        volumeMounts:
+        - mountPath: /app/project.yaml
+          name: project-yaml
+          subPath: project.yaml
         resources:
           limits:
             cpu: "2"
@@ -52,3 +56,8 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: harbor
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: glmr-glmr-subql-project
+        name: project-yaml

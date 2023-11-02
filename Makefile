@@ -8,3 +8,6 @@ build:
 deploy: build
 	kubectl set image deploy -n slp ${DEPLOYMENT} ${DEPLOYMENT}=${IMAGE}
 	kubectl rollout restart deploy  -n slp  ${DEPLOYMENT}
+
+create-projent-cm:
+	kubectl create cm glmr-glmr-subql-project --from-file=project.yaml -n slp
