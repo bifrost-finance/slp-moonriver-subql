@@ -1,27 +1,27 @@
 type StakingInfo @entity {
   id: ID!
-  block_height: BigInt!
-  block_timestamp: Date!
-  method: String!
-  data: String!
+  block_height: BigInt
+  block_timestamp: Date
+  method: String
+  data: String
 }
 
 type StakingErapaid @entity {
   id: ID!
-  event_id: Int!
-  block_height: String!
-  block_timestamp: Date!
+  event_id: Int
+  block_height: String
+  block_timestamp: Date
   era_index: String
   validator_payout: BigInt
-  number_collators:String!
+  number_collators:String
   apy:String
 }
 
 type Remarked @entity {
   id: ID!
-  event_id: Int!
-  block_height: Int!
-  block_timestamp: Date!
+  event_id: Int
+  block_height: Int
+  block_timestamp: Date
   account: String
   hash: String
   result: String
@@ -29,8 +29,8 @@ type Remarked @entity {
 
 type ParaAccountInfo @entity {
   id: ID!
-  block_height: BigInt!
-  block_timestamp: Date!
+  block_height: BigInt
+  block_timestamp: Date
   free: BigInt
   reserved:BigInt
   miscFrozen:BigInt
