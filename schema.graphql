@@ -27,4 +27,12 @@ type Remarked @entity {
   result: String
 }
 
-
+type ParaAccountInfo @entity {
+  id: ID!
+  block_height: BigInt!
+  block_timestamp: Date!
+  free: BigInt
+  reserved:BigInt
+  miscFrozen:BigInt
+  feeFrozen:BigInt
+}

@@ -18,7 +18,7 @@
   "author": "Bifrost",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@polkadot/api": "^9",
+    "@polkadot/api": "^10",
     "@subql/cli": "latest",
     "@subql/types": "latest",
     "moonbeam-types-bundle": "^2.0.3",
