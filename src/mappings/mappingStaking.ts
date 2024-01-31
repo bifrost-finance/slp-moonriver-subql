@@ -11,7 +11,7 @@ export async function staking(block: SubstrateBlock): Promise<void> {
     ).toBigInt();
     const stakingEvents = block.events.filter(
         (e) => e.event.section === "parachainStaking"
-    ) as unknown as SubstrateEvent[];
+    )  as unknown as  SubstrateEvent[];
 
     for (let stakingEvent of stakingEvents) {
         const {

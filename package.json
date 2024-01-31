@@ -4,11 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -b",
-    "prepack": "rm -rf dist && npm build",
-    "test": "jest",
-    "codegen": "./node_modules/.bin/subql codegen",
-    "start:docker": "docker-compose pull && docker-compose up --remove-orphans"
+    "build": "subql build",
+    "prepack": "rm -rf dist && yarn build",
+    "codegen": "subql codegen"
   },
   "homepage": "https://github.com/subquery/subql-starter",
   "repository": "github:subquery/subql-starter",
@@ -29,8 +27,5 @@
   },
   "exports": {
     "chaintypes": "./src/chaintypes.ts"
-  },
-  "dependencies": {
-    "bignumber.js": "^9.1.0"
   }
 }
