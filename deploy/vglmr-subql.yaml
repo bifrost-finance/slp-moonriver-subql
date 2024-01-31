@@ -22,6 +22,7 @@ spec:
         - -f=/app
         - --local
         - --timestamp-field
+        - - --db-schema=public
         env:
         - name: MOONRIVER_DB_DATABASE
           value: slp_vglmr_slp

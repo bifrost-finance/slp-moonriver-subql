@@ -1,4 +1,4 @@
-IMAGE=hkccr.ccs.tencentyun.com/slp-service/slp-moonriver-subql-vglmr:v1.3
+IMAGE=harbor.liebi.com/slp/slp-moonriver-subql-vglmr:v1.3
 DEPLOYMENT=glmr-glmr-subql
 
 build:
