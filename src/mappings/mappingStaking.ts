@@ -2,7 +2,8 @@ import { SubstrateBlock, SubstrateEvent } from "@subql/types";
 import { Balance, BlockNumber } from "@polkadot/types/interfaces";
 import { Compact } from "@polkadot/types";
 import BigNumber from "bignumber.js";
-import { Remarked, StakingErapaid, StakingInfo } from "../types";
+
+import { ParaAccountInfo, Remarked, StakingErapaid, StakingInfo } from "../types";
 
 export async function staking(block: SubstrateBlock): Promise<void> {
     const blockNumber = (
@@ -25,6 +26,29 @@ export async function staking(block: SubstrateBlock): Promise<void> {
         record.data = data.toString();
         await record.save();
     }
+
+    const result = await api.query.system.account(
+        "0x7369626CeE070000000000000000000000000000"
+    );
+    const balanceRecord = new ParaAccountInfo(blockNumber.toString());
+
+    balanceRecord.block_height = blockNumber;
+    balanceRecord.block_timestamp = block.timestamp;
+    balanceRecord.free = (result.data.free as Balance)?.toBigInt();
+    balanceRecord.reserved = (result.data.reserved as Balance)?.toBigInt();
+    balanceRecord.feeFrozen = (result.data.frozen as Balance)?.toBigInt();
+
+    const delegators = await Promise.all(
+        [
+            "0x80a6E6EE06A0d92F4de767ff1dF3390a9c20D08C",
+            "0x2De597AB8bef54Bbd356BE019e90FA3c960FeAAc",
+        ].map(async (account) => (await api.query.system.account(account)).data.free)
+    ) as unknown as number[];
+
+    // save delegators amount in miscFrozen
+    balanceRecord.miscFrozen = delegators.reduce((a, c) => BigInt(a) + BigInt(c), BigInt(0)) as unknown as bigint;
+
+    await balanceRecord.save();
     return;
 }
 
