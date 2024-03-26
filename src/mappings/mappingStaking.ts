@@ -64,10 +64,7 @@ export async function handleStakingErapaid(
     const record = new StakingErapaid(`${blockNumber}-${event.idx.toString()}`);
     const totalIssuance = (await api.query.balances.totalIssuance()).toString();
     const round = (await api.query.parachainStaking.round()).toJSON();
-    const staked = (
-        await api.query.parachainStaking.staked(
-            JSON.parse(JSON.stringify(round)).current
-        )
+    const staked = (await api.query.parachainStaking.total()
     ).toString();
     const staked_portion = new BigNumber(staked).div(totalIssuance).toNumber();
     const annual_return = new BigNumber(0.05).div(staked_portion).toNumber();
