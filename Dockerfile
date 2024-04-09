@@ -1,6 +1,12 @@
-FROM onfinality/subql-node:latest
+FROM node:18 as builder
+
 WORKDIR /app
-COPY . .
-RUN  yarn install && yarn codegen && yarn build
-WORKDIR /
-# Entrypoint  ["/sbin/tini","--","/usr/local/lib/node_modules/@subql/node/bin/run"]
+COPY . ./
+
+RUN yarn
+RUN yarn codegen
+RUN yarn build
+
+FROM onfinality/subql-node:v2.12.6
+
+COPY --from=builder /app/ /app/
